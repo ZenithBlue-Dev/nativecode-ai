@@ -1,0 +1,64 @@
+---
+const feats = [
+  { t: "AI coding agents", d: "Claude Code, Codex, OpenCode, Agy, Grok, Qwen and Kiro — install and auth from one catalog.", tag: "7 AGENTS", icon: '<path d="M12 2l2.4 4.9 5.6.8-4 4 .9 5.6-5-2.6-4.9 2.6.9-5.6-4-4 5.6-.8z"/>' },
+  { t: "Agent workspace", d: "Live CPU / RAM / swap telemetry cards per session. Watch your agents work.", tag: "TELEMETRY", icon: '<path d="M3 13h4l2-7 4 14 2-7h6"/>' },
+  { t: "Full Linux shell", d: "Real terminal with tabs, extra-keys row and PRoot Debian under it. Total control, on-device.", tag: "SHELL", icon: '<path d="M4 17l6-5-6-5M12 19h8"/>' },
+  { t: "Prebaked Alpaquita rootfs", d: "Lightweight prebaked rootfs with full package management. Instant container, no long bootstrap.", tag: "ROOTFS", icon: '<path d="M12 2l8 4.5v9L12 20l-8-4.5v-9zM12 11L4 6.5M12 11l8-4.5M12 11v9"/>' },
+  { t: "PRoot / Chroot", d: "User-space PRoot needs no root. Rooted devices unlock kernel-space Chroot execution.", tag: "ISOLATION", icon: '<rect x="4" y="4" width="16" height="16" rx="2"/><path d="M9 12l2 2 4-4"/>' },
+  { t: "XFCE4 desktop", d: "Full graphical desktop via the bundled Termux-X11 server with VirGL GPU acceleration.", tag: "GUI", icon: '<rect x="2" y="4" width="20" height="13" rx="2"/><path d="M8 21h8M12 17v4"/>' },
+  { t: "Projects", d: "Create and manage on-device projects — Node.js, Python, C++ — with a multi-repo tree.", tag: "PROJECTS", icon: '<path d="M3 7a2 2 0 012-2h4l2 2h8a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>' },
+  { t: "Git integration", d: "Real-time status, visual diff inspector, branch switching and GitHub CLI auth.", tag: "GIT", icon: '<circle cx="6" cy="6" r="2.5"/><circle cx="6" cy="18" r="2.5"/><circle cx="18" cy="8" r="2.5"/><path d="M6 8.5v7M18 10.5c0 4-5 3-8 5"/>' },
+  { t: "Marketplace", d: "Browse and install CLI tools, runtimes and shells from the in-app software catalog.", tag: "CATALOG", icon: '<path d="M4 7l8-4 8 4v10l-8 4-8-4zM4 7l8 4 8-4M12 11v9"/>' },
+  { t: "Preconfigured runtimes", d: "Node.js 26 LTS, Python 3.12, GCC and standard package managers, ready on first launch.", tag: "DEV", icon: '<path d="M8 6l-5 6 5 6M16 6l5 6-5 6"/>' },
+  { t: "Credential provisioning", d: "Guided install and safe on-device storage for AI vendor keys and GitHub tokens.", tag: "AUTH", icon: '<rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 018 0v3M12 14v3"/>' },
+  { t: "Guided onboarding", d: "Device check, isolation picker and live-provisioned install plan with console output.", tag: "WIZARD", icon: '<path d="M5 3l3 7 7 3-7 3zM15 15l5 6"/>' },
+];
+---
+
+<section id="features" class="section-glow relative overflow-hidden scroll-mt-20 py-20">
+  <div class="glow-orb left-1/2 top-0 h-64 w-[42rem] -translate-x-1/2 bg-mint/10" aria-hidden="true"></div>
+  <div class="term-grid absolute inset-0 opacity-60" aria-hidden="true"></div>
+  <div class="relative mx-auto max-w-6xl px-4 sm:px-6">
+    <div class="flex flex-wrap items-end justify-between gap-4">
+      <div>
+        <p class="reveal font-mono2 text-xs tracking-widest text-mint">$ nativecode --features</p>
+        <h2 class="reveal mt-2 text-3xl font-bold sm:text-4xl">Everything in the box</h2>
+        <p class="reveal mt-3 max-w-xl text-warm">One install, zero PC. Agents, shell, desktop, git and runtimes — provisioned on-device.</p>
+      </div>
+      <p class="reveal inline-flex items-center gap-2 rounded-full border border-mint/30 bg-mint/10 px-4 py-1.5 font-mono2 text-xs tracking-widest text-mint">12 MODULES · NO PC</p>
+    </div>
+    <div class="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      {feats.map((f, i) => (
+        <div class="feat-card reveal rounded-md border border-white/10 bg-surface/80 p-5 backdrop-blur" style={`transition-delay:${(i % 4) * 60}ms`}>
+          <div class="flex items-center justify-between gap-3">
+            <span class="feat-icon" aria-hidden="true"><svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" set:html={f.icon} /></span>
+            <p class="font-mono2 text-[10px] tracking-widest text-grape">{f.tag}</p>
+          </div>
+          <h3 class="mt-4 text-lg font-bold leading-snug">{f.t}</h3>
+          <p class="mt-2 text-sm leading-relaxed text-warm">{f.d}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script>
+  // Cheap spotlight: track pointer per card for the ::after glow. Passive + rAF-throttled.
+  (() => {
+    const cards = document.querySelectorAll(".feat-card");
+    if (!cards.length || matchMedia("(pointer: coarse)").matches) return;
+    let raf = 0;
+    document.getElementById("features")?.addEventListener("pointermove", (e) => {
+      if (raf) return;
+      raf = requestAnimationFrame(() => {
+        raf = 0;
+        const t = e.target instanceof Element ? e.target.closest(".feat-card") : null;
+        if (t instanceof HTMLElement) {
+          const r = t.getBoundingClientRect();
+          t.style.setProperty("--mx", `${e.clientX - r.left}px`);
+          t.style.setProperty("--my", `${e.clientY - r.top}px`);
+        }
+      });
+    }, { passive: true });
+  })();
+</script>

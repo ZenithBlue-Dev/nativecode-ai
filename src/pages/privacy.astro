@@ -1,0 +1,133 @@
+---
+import Base from "../layouts/Base.astro";
+import Nav from "../components/Nav.astro";
+
+const sections = [
+  {
+    n: "01",
+    t: "Summary",
+    body: [
+      "NativeCode is local-first. We do not collect personal data on a NativeCode cloud or backend.",
+      "Your files, projects, packages and credentials stay on this device — inside the Debian PRoot or Chroot distro and app-private storage.",
+      "Optional features (GitHub login, AI CLI auth, package and marketplace installs) may contact third parties you choose — never a NativeCode analytics service.",
+      "Auth tokens and credentials, when used, are stored on-device only.",
+    ],
+  },
+  {
+    n: "02",
+    t: "Information on your device",
+    body: [
+      "App preferences — isolation method (PRoot/Chroot), UI and settings flags.",
+      "Linux guest data — Debian rootfs, packages, home-directory files and projects you create.",
+      "Auth material (optional) — GitHub CLI tokens, AI CLI API keys or device-login sessions under guest home.",
+      "Session state — terminal history, project paths, onboarding progress.",
+      "This data is under your control. Clearing app storage or uninstalling removes app-owned data (subject to OS backup rules).",
+    ],
+  },
+  {
+    n: "03",
+    t: "Information sent over the network",
+    body: [
+      "Guest packages and tools — Debian/apt mirrors, marketplace or AI installer hosts, only when you install.",
+      "GitHub authentication and API — github.com, only when you connect GitHub.",
+      "AI CLI install or auth — official vendor endpoints for the tools you enable.",
+      "Package managers — npm registry, apt repositories, only when you install tools.",
+      "We do not sell personal information. Third parties process data under their own privacy policies.",
+    ],
+  },
+  {
+    n: "04",
+    t: "Permissions",
+    body: [
+      "NativeCode may request Android permissions for its features — e.g. notifications for foreground services that keep terminal and AI sessions alive, and network access. Permissions are used only for the stated in-app purpose.",
+    ],
+  },
+  {
+    n: "05",
+    t: "Sharing",
+    body: [
+      "We do not sell or rent your data. Data leaves the device only when you authenticate to a third party, install remote packages you chose, or when a tool you run makes its own network calls.",
+    ],
+  },
+  {
+    n: "06",
+    t: "Retention & deletion",
+    body: [
+      "Local app and guest data is kept until you delete it, clear storage, or uninstall.",
+      "Tokens and keys are kept until you sign out, overwrite config, clear guest home, clear app data, or uninstall.",
+      "In-app: Settings → GitHub Account → LOGOUT, AI CLI tools → per-tool LOGOUT or CLEAR ALL AI CREDENTIALS, or clear app storage from Android App info.",
+      "For account data held by GitHub or AI vendors, manage deletion in those services' own settings.",
+    ],
+  },
+  {
+    n: "07",
+    t: "Security",
+    body: [
+      "Traffic to third parties uses HTTPS where supported. Credentials live in app and guest storage — protect your device with a lock screen.",
+      "OS backup behavior (allowBackup) may copy app files depending on device settings — treat device backups as sensitive if you store tokens.",
+    ],
+  },
+  {
+    n: "08",
+    t: "Children's privacy",
+    body: [
+      "NativeCode is a developer tool intended for adults and professional use. It is not directed at children under 13 (or the age required by local law).",
+    ],
+  },
+  {
+    n: "09",
+    t: "AI-generated content",
+    body: [
+      "Optional AI CLIs run as third-party tools inside the guest environment. You are responsible for how you use them and for complying with each vendor's terms.",
+      "In-app: Settings → AI Safety & Report — vendor terms links, report forms and a developer report path (zenithblue.dev@gmail.com).",
+    ],
+  },
+  {
+    n: "10",
+    t: "Changes & contact",
+    body: [
+      "We may update this policy in the repository; the Last updated date will change.",
+      "Questions: zenithblue.dev@gmail.com — or open an issue at github.com/zenithblue-dev/nativecode-ai.",
+    ],
+  },
+];
+---
+
+<Base
+  title="Privacy Policy — NativeCode"
+  description="How NativeCode handles information: local-first, no analytics backend, on-device credentials."
+>
+  <Nav />
+  <main class="mx-auto max-w-4xl px-4 py-16 sm:px-6">
+    <p class="reveal font-mono2 text-xs tracking-widest text-mint">$ nativecode --privacy</p>
+    <h1 class="reveal mt-2 text-3xl font-bold sm:text-5xl">Privacy Policy</h1>
+    <p class="reveal mt-4 font-mono2 text-sm text-warm">
+      Last updated: 2026-07-31 · App: NativeCode (com.zenithblue.nativecode)
+    </p>
+    <p class="reveal mt-6 max-w-3xl text-lg text-cream/90">
+      NativeCode is a developer environment that runs a Linux guest
+      (PRoot/Chroot), an optional X11 desktop, terminal sessions and optional
+      third-party AI CLIs. This policy describes how information is handled
+      when you use the Android app.
+    </p>
+
+    <div class="mt-10 space-y-4">
+      {sections.map((s) => (
+        <section class="reveal rounded-sm border border-white/10 bg-surface p-6">
+          <p class="font-mono2 text-sm font-bold text-mint">{s.n}</p>
+          <h2 class="mt-1 text-xl font-bold">{s.t}</h2>
+          <ul class="mt-3 space-y-2">
+            {s.body.map((p) => (
+              <li class="flex gap-3 text-warm"><span class="text-mint">▸</span><span>{p}</span></li>
+            ))}
+          </ul>
+        </section>
+      ))}
+    </div>
+
+    <p class="reveal mt-10 font-mono2 text-xs leading-relaxed text-warm">
+      SOURCE: ADAPTED FROM NC-PLAY docs/privacy-policy.md · FULL TEXT IN THE APP
+      REPO · CONTACT: zenithblue.dev@gmail.com
+    </p>
+  </main>
+</Base>

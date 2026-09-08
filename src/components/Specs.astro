@@ -1,0 +1,49 @@
+---
+const rows = [
+  ["OS", "Android 8.0+ (SDK 26+), built against SDK 36"],
+  ["Storage", "10 GB free internal storage (hard requirement)"],
+  ["RAM", "7 GB+ recommended, swap checked at setup"],
+  ["SoC", "Snapdragon 8 Gen 2 / Dimensity 9200 / Tensor G3 / Exynos 2200 or newer recommended"],
+  ["Root", "Not required (PRoot) · optional Chroot mode for rooted devices"],
+  ["Display", "XFCE4 desktop via bundled Termux-X11 + VirGL"],
+];
+const chips = [
+  { k: "10 GB", v: "storage" },
+  { k: "7 GB+", v: "RAM" },
+  { k: "8.0+", v: "Android" },
+  { k: "NO ROOT", v: "needed" },
+];
+---
+
+<section id="specs" class="section-glow border-y border-white/10 bg-surface/40 py-20">
+  <div class="mx-auto grid max-w-6xl items-start gap-8 px-4 sm:px-6 lg:grid-cols-[1fr_280px]">
+    <div class="min-w-0">
+      <p class="reveal font-mono2 text-xs tracking-widest text-mint">$ nativecode --check</p>
+      <h2 class="reveal mt-2 text-3xl font-bold sm:text-4xl">Requirements</h2>
+      <p class="reveal mt-3 max-w-xl text-warm">Real Linux needs real headroom. The wizard verifies this before installing.</p>
+      <div class="reveal mt-8 overflow-hidden rounded-md border border-white/10 shadow-2xl">
+        <div class="flex items-center gap-1.5 border-b border-white/10 bg-abyss px-4 py-2.5" aria-hidden="true">
+          <span class="h-2.5 w-2.5 rounded-full bg-crimson/80"></span>
+          <span class="h-2.5 w-2.5 rounded-full bg-amber/80"></span>
+          <span class="h-2.5 w-2.5 rounded-full bg-mint/80"></span>
+          <span class="ml-3 font-mono2 text-[11px] tracking-widest text-warm">device-check.sh</span>
+        </div>
+        {rows.map(([k, v], i) => (
+          <div class={`spec-row grid gap-1 px-5 py-4 sm:grid-cols-[140px_1fr] sm:gap-4 ${i % 2 === 0 ? "bg-abyss" : "bg-surface"}`}>
+            <p class="font-mono2 text-sm font-bold text-mint">› {k}</p>
+            <p class="text-sm leading-relaxed text-cream/90">{v}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+    <div class="grid grid-cols-2 gap-4 lg:grid-cols-1">
+      {chips.map((c, i) => (
+        <div class="reveal rounded-md border border-mint/20 bg-abyss/80 p-5 text-center backdrop-blur" style={`transition-delay:${i * 60}ms`}>
+          <p class="font-mono2 text-2xl font-bold text-mint">{c.k}</p>
+          <p class="mt-1 font-mono2 text-[11px] tracking-widest text-warm">{c.v.toUpperCase()}</p>
+        </div>
+      ))}
+      <p class="reveal col-span-2 rounded-md border border-white/10 bg-surface p-4 font-mono2 text-xs leading-relaxed text-warm lg:col-span-1"><span class="text-mint">$</span> prebaked rootfs → skip<br />long bootstrap, ship faster.</p>
+    </div>
+  </div>
+</section>

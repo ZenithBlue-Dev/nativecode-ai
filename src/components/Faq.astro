@@ -1,0 +1,52 @@
+---
+const faqs = [
+  { q: "Do I need root?", a: "No. PRoot mode runs fully unprivileged. Chroot mode is an optional extra for rooted devices with kernel-space execution." },
+  { q: "Why 10 GB of storage?", a: "The Debian container, desktop environment, runtimes and AI toolchains are real software — the wizard verifies space before installing anything." },
+  { q: "Which AI tools are supported?", a: "Claude Code, Codex, OpenCode, Agy, Grok, Qwen and Kiro, with guided install and credential management inside the app." },
+  { q: "PRoot or Chroot?", a: "PRoot works everywhere and is recommended. Chroot is faster and deeper but needs a rooted device." },
+  { q: "Where do I get packages?", a: "From the in-app software marketplace plus anything apt offers inside the Debian container." },
+  { q: "Is it on the Play Store?", a: "Releases ship as APKs on GitHub. Follow the repo for store announcements." },
+];
+---
+
+<section id="faq" class="section-glow mx-auto max-w-6xl scroll-mt-20 px-4 py-20 sm:px-6">
+  <div class="grid items-start gap-10 lg:grid-cols-[320px_1fr]">
+    <div class="lg:sticky lg:top-20">
+      <p class="reveal font-mono2 text-xs tracking-widest text-mint">$ nativecode --help</p>
+      <h2 class="reveal mt-2 text-3xl font-bold sm:text-4xl">Questions, answered</h2>
+      <p class="reveal mt-3 text-sm leading-relaxed text-warm">Root, storage, agents, isolation — the six things everyone asks before installing.</p>
+      <div class="reveal mt-6 rounded-md border border-mint/25 bg-mint/[.06] p-5">
+        <p class="font-mono2 text-xs tracking-widest text-mint">STILL STUCK?</p>
+        <p class="mt-2 text-sm text-cream/90">Open an issue — logs from the onboarding console help most.</p>
+        <a href="https://github.com/zenithblue-dev/nativecode-ai" class="mt-3 inline-block font-mono2 text-xs font-bold tracking-widest text-mint hover:text-focus">GITHUB →</a>
+      </div>
+    </div>
+    <div class="space-y-3">
+      {faqs.map((f, i) => (
+        <div class="faq-item reveal rounded-md border border-white/10 bg-surface/80 backdrop-blur" data-open={i === 0 ? "true" : "false"}>
+          <button class="faq-q flex w-full items-center justify-between gap-4 px-5 py-4 text-left font-bold" aria-expanded={i === 0 ? "true" : "false"}>
+            <span>{f.q}</span>
+            <span class="faq-plus grid h-7 w-7 flex-none place-items-center rounded-full border border-mint/30 font-mono2 text-lg leading-none text-mint">+</span>
+          </button>
+          <div class="faq-answer"><div class="overflow-hidden"><p class="px-5 pb-5 text-sm leading-relaxed text-warm">{f.a}</p></div></div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script>
+  document.querySelectorAll("#faq .faq-q").forEach((b) =>
+    b.addEventListener("click", () => {
+      const item = b.closest(".faq-item");
+      const open = item?.getAttribute("data-open") === "true";
+      // single-open accordion: cheaper paint, clearer on phones
+      document.querySelectorAll("#faq .faq-item").forEach((el) => {
+        el.setAttribute("data-open", "false");
+        el.querySelector(".faq-q")?.setAttribute("aria-expanded", "false");
+      });
+      item?.setAttribute("data-open", open ? "false" : "true");
+      b.setAttribute("aria-expanded", open ? "false" : "true");
+    })
+  );
+</script>

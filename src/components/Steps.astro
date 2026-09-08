@@ -1,0 +1,33 @@
+---
+const steps = [
+  { n: "01", t: "Install the APK", d: "Grab the release APK from GitHub. Android 8.0+, 10 GB free storage." },
+  { n: "02", t: "Run the wizard", d: "Onboarding checks storage, RAM and swap, then shows you the install plan." },
+  { n: "03", t: "Pick isolation", d: "PRoot for no-root devices (recommended), Chroot for rooted power users." },
+  { n: "04", t: "Code with AI", d: "Provision Claude, Codex or OpenCode and start shipping from your pocket." },
+];
+---
+
+<section id="setup" class="section-glow relative scroll-mt-20 overflow-hidden py-20">
+  <div class="glow-orb left-[-5rem] top-1/3 h-64 w-64 bg-mint/10" aria-hidden="true"></div>
+  <div class="relative mx-auto max-w-6xl px-4 sm:px-6">
+    <p class="reveal font-mono2 text-xs tracking-widest text-mint">$ nativecode --install</p>
+    <div class="flex flex-wrap items-end justify-between gap-4">
+      <h2 class="reveal mt-2 text-3xl font-bold sm:text-4xl">Up in four steps</h2>
+      <p class="reveal font-mono2 text-xs tracking-widest text-warm">~10 MIN · GUIDED</p>
+    </div>
+    <div class="relative mt-10">
+      <div class="absolute left-0 right-0 top-6 hidden h-px bg-gradient-to-r from-transparent via-mint/40 to-transparent md:block" aria-hidden="true"></div>
+      <div class="grid gap-4 md:grid-cols-4">
+        {steps.map((s, i) => (
+          <div class="step-card reveal rounded-md border border-white/10 bg-surface/80 p-5 pt-6 backdrop-blur" style={`transition-delay:${i * 70}ms`}>
+            <span class="step-ghost" aria-hidden="true">{s.n}</span>
+            <span class="relative mb-4 grid h-8 w-8 place-items-center rounded-full border border-mint/40 bg-abyss font-mono2 text-xs font-bold text-mint shadow-[0_0_18px_rgba(61,220,132,.35)]">{i + 1}</span>
+            <p class="font-mono2 text-[11px] tracking-widest text-mint">{s.n}</p>
+            <h3 class="mt-1.5 font-bold">{s.t}</h3>
+            <p class="mt-2 text-sm leading-relaxed text-warm">{s.d}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>

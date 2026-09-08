@@ -1,0 +1,134 @@
+---
+const slides = [
+  {
+    src: "shots/shot-ai-agents.png", tag: "CATALOG", t: "AI agents",
+    d: "Every coding agent in one catalog — free and pro tools side by side.",
+    points: ["OpenCode free agent out of the box", "Codex, Claude Code, Qwen, Grok & Kiro via catalog", "Guided install + credential provisioning"],
+  },
+  {
+    src: "shots/shot-projects.png", tag: "PROJECTS", t: "Projects",
+    d: "Create and manage on-device coding projects in seconds.",
+    points: ["Create New Project wizard", "Node.js, Python and C++ ready", "Multi-repo tree with live status"],
+  },
+  {
+    src: "shots/shot-linux-shell.png", tag: "SHELL", t: "Linux shell",
+    d: "Debian shell running side by side with your AI agents.",
+    points: ["System shell + agent shells in tabs", "Extra-keys row for phone typing", "CPU / RAM telemetry in the header"],
+  },
+  {
+    src: "shots/shot-marketplace.png", tag: "CATALOG", t: "Marketplace",
+    d: "One-tap runtimes, shells and utilities from the software catalog.",
+    points: ["Free and pro sections", "Runtimes, shells and tooling", "GPU compute & emulation add-ons"],
+  },
+  {
+    src: "shots/shot-agent-workspace.png", tag: "TELEMETRY", t: "Agent workspace",
+    d: "Live CPU, RAM and swap cards while your agents work.",
+    points: ["Per-session telemetry cards", "Watch long runs live", "mkm workspace example onboard"],
+  },
+  {
+    src: "shots/shot-desktop.png", tag: "GUI", t: "Desktop",
+    d: "A full XFCE4 desktop with GPU acceleration — on your phone.",
+    points: ["XFCE4 via bundled Termux-X11", "VirGL GPU acceleration", "Real windows, panel and apps"],
+  },
+  {
+    src: "shots/shot-cta.png", tag: "GET IT", t: "Get started",
+    d: "Vibe code on your phone — no PC needed.",
+    points: ["Signed APK on GitHub releases", "Google Play listing", "Android 8.0+ · 10 GB storage"],
+  },
+];
+---
+
+<section id="tour" class="section-glow relative scroll-mt-20 overflow-hidden py-16 sm:py-20">
+  <div class="glow-orb right-[-6rem] top-10 h-72 w-72 bg-grape/20" aria-hidden="true"></div>
+  <div class="relative mx-auto max-w-6xl px-4 sm:px-6">
+    <div class="flex flex-wrap items-end justify-between gap-4">
+      <div>
+        <p class="reveal font-mono2 text-xs tracking-widest text-mint">$ nativecode --tour</p>
+        <h2 class="reveal mt-2 text-3xl font-bold sm:text-4xl">Walk the environment</h2>
+        <p class="reveal mt-3 max-w-xl text-warm">Swipe through the real app — catalog, shell, telemetry and desktop.</p>
+      </div>
+      <div class="reveal flex items-center gap-3">
+        <p class="font-mono2 text-xs tracking-widest text-warm"><span id="tour-count" class="text-mint">01</span> / 07</p>
+        <div class="hidden gap-2 md:flex">
+          <button id="tour-prev" aria-label="Previous slide" class="grid h-11 w-11 place-items-center rounded-md border border-white/15 bg-surface font-mono2 text-lg text-cream transition hover:border-mint hover:text-mint">←</button>
+          <button id="tour-next" aria-label="Next slide" class="grid h-11 w-11 place-items-center rounded-md border border-mint/50 bg-mint/10 font-mono2 text-lg text-mint transition hover:bg-mint hover:text-abyss">→</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tour-frame reveal relative mx-auto mt-8 max-w-6xl px-4 sm:px-6" id="tour-box" tabindex="0">
+    <div class="relative overflow-hidden rounded-md border border-white/10 bg-abyss shadow-2xl">
+      <div class="flex items-center gap-1.5 border-b border-white/10 bg-surface/80 px-4 py-2.5" aria-hidden="true">
+        <span class="h-2.5 w-2.5 rounded-full bg-crimson/80"></span>
+        <span class="h-2.5 w-2.5 rounded-full bg-amber/80"></span>
+        <span class="h-2.5 w-2.5 rounded-full bg-mint/80"></span>
+        <span class="ml-3 hidden font-mono2 text-[11px] tracking-widest text-warm sm:block">nativecode — live tour</span>
+      </div>
+      <div class="overflow-hidden">
+        <div id="tour-track" class="flex transition-transform duration-500 ease-out will-change-transform">
+          {slides.map((s, i) => (
+            <article class="flex w-full shrink-0 flex-col md:flex-row md:items-stretch">
+              <div class="tour-img-wrap flex min-w-0 flex-1 items-center justify-center bg-abyss p-4 sm:p-6">
+                <img src={s.src} alt={s.t} class="max-h-[46vh] w-auto max-w-full rounded-sm border border-white/10 object-contain shadow-xl sm:max-h-[60vh] md:max-h-[62vh]" loading={i === 0 ? "eager" : "lazy"} decoding="async" fetchpriority={i === 0 ? "high" : "auto"} width="480" height="960" />
+              </div>
+              <div class="flex min-w-0 flex-1 flex-col justify-center border-t border-mint/15 bg-surface/70 p-5 sm:p-8 md:max-w-md md:border-l md:border-t-0">
+                <p class="font-mono2 text-[11px] tracking-widest text-grape">{s.tag} · 0{i + 1} / 07</p>
+                <h3 class="mt-1.5 text-2xl font-bold sm:text-3xl">{s.t}</h3>
+                <p class="mt-2 text-sm text-warm sm:text-base">{s.d}</p>
+                <ul class="mt-4 space-y-2.5">
+                  {s.points.map((p) => (
+                    <li class="flex gap-2.5 text-[13px] text-cream/90 sm:text-sm"><span class="mt-0.5 grid h-5 w-5 flex-none place-items-center rounded-full bg-mint/12 font-mono2 text-[11px] text-mint">▸</span><span>{p}</span></li>
+                  ))}
+                </ul>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+      <div class="tour-progress" aria-hidden="true"><span id="tour-bar" style="width:14.28%"></span></div>
+    </div>
+
+    <div class="mt-5 flex items-center justify-center gap-2.5" id="tour-dots">
+      {slides.map((s, i) => (
+        <button class="tour-dot h-2.5 w-2.5 rounded-full bg-white/15 transition hover:bg-mint/60" data-active={i === 0 ? "true" : "false"} data-i={i} aria-label={s.t}></button>
+      ))}
+    </div>
+
+    <div class="mt-4 grid grid-cols-2 gap-3 md:hidden">
+      <button id="tour-prev-m" class="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-md border border-white/15 bg-surface px-4 font-mono2 text-sm font-bold text-cream transition active:border-mint/60 active:text-mint"><span aria-hidden="true">←</span> PREV</button>
+      <button id="tour-next-m" class="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-md border border-mint/50 bg-mint/10 px-4 font-mono2 text-sm font-bold text-mint transition active:bg-mint active:text-abyss">NEXT <span aria-hidden="true">→</span></button>
+    </div>
+  </div>
+</section>
+
+<script define:vars={{ total: slides.length }}>
+  const track = document.getElementById("tour-track");
+  const dots = Array.from(document.querySelectorAll(".tour-dot"));
+  const box = document.getElementById("tour-box");
+  const bar = document.getElementById("tour-bar");
+  const count = document.getElementById("tour-count");
+  let cur = 0;
+  function show(i) {
+    cur = (i + total) % total;
+    if (track) track.style.transform = `translateX(-${cur * 100}%)`;
+    dots.forEach((d, di) => d.setAttribute("data-active", di === cur ? "true" : "false"));
+    if (bar) bar.style.width = `${((cur + 1) / total) * 100}%`;
+    if (count) count.textContent = String(cur + 1).padStart(2, "0");
+  }
+  document.getElementById("tour-prev")?.addEventListener("click", () => show(cur - 1));
+  document.getElementById("tour-next")?.addEventListener("click", () => show(cur + 1));
+  document.getElementById("tour-prev-m")?.addEventListener("click", () => show(cur - 1));
+  document.getElementById("tour-next-m")?.addEventListener("click", () => show(cur + 1));
+  dots.forEach((d) => d.addEventListener("click", () => show(Number(d.dataset.i))));
+  box?.addEventListener("keydown", (e) => {
+    if (e.key === "ArrowLeft") show(cur - 1);
+    if (e.key === "ArrowRight") show(cur + 1);
+  });
+  let sx = 0;
+  box?.addEventListener("touchstart", (e) => { sx = e.touches[0].clientX; }, { passive: true });
+  box?.addEventListener("touchend", (e) => {
+    const dx = e.changedTouches[0].clientX - sx;
+    if (Math.abs(dx) > 40) show(cur + (dx < 0 ? 1 : -1));
+  }, { passive: true });
+</script>
