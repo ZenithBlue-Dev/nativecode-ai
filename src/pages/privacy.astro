@@ -4,78 +4,89 @@ import Nav from "../components/Nav.astro";
 
 const sections = [
   {
-    n: "01",
     t: "Summary",
     body: [
-      "NativeCode is local-first. We do not collect personal data on a NativeCode cloud or backend.",
-      "Your files, projects, packages and credentials stay on this device — inside the Debian PRoot or Chroot distro and app-private storage.",
-      "Optional features (GitHub login, AI CLI auth, package and marketplace installs) may contact third parties you choose — never a NativeCode analytics service.",
+      "NativeCode is local-first. We show no ads and run no NativeCode cloud or account backend.",
+      "Your files, projects, packages and credentials stay on this device — inside the Alpaquita Linux PRoot guest and app-private storage.",
+      "Optional, off by default: crash reports (Firebase Crashlytics) and anonymous usage statistics (Google Analytics for Firebase). Nothing is sent until you opt in during onboarding or in Settings → Crash reports & usage stats, and you can turn either off at any time.",
+      "Optional features (GitHub login, AI CLI auth, package installs) contact third parties you choose.",
       "Auth tokens and credentials, when used, are stored on-device only.",
     ],
   },
   {
-    n: "02",
     t: "Information on your device",
     body: [
-      "App preferences — isolation method (PRoot/Chroot), UI and settings flags.",
-      "Linux guest data — Debian rootfs, packages, home-directory files and projects you create.",
+      "App preferences — UI, terminal, onboarding and PRoot settings.",
+      "Linux guest data — Alpaquita rootfs, packages, home-directory files and projects you create.",
       "Auth material (optional) — GitHub CLI tokens, AI CLI API keys or device-login sessions under guest home.",
-      "Session state — terminal history, project paths, onboarding progress.",
-      "This data is under your control. Clearing app storage or uninstalling removes app-owned data (subject to OS backup rules).",
+      "Session state — terminal history, chat history, project paths, onboarding progress.",
+      "This data is under your control. Clearing app storage or uninstalling removes app-owned data.",
     ],
   },
   {
-    n: "03",
     t: "Information sent over the network",
     body: [
-      "Guest packages and tools — Debian/apt mirrors, marketplace or AI installer hosts, only when you install.",
+      "Guest packages and tools — apk repositories, npm registry and official tool hosts, only when you install. The rootfs is delivered by Google Play.",
       "GitHub authentication and API — github.com, only when you connect GitHub.",
-      "AI CLI install or auth — official vendor endpoints for the tools you enable.",
-      "Package managers — npm registry, apt repositories, only when you install tools.",
+      "AI CLI install, auth and use — official vendor endpoints for the tools you enable. AI providers may receive prompts, selected code or files, account identifiers, diagnostics and generated output when you use their tools.",
       "We do not sell personal information. Third parties process data under their own privacy policies.",
     ],
   },
   {
-    n: "04",
+    t: "Crash reports & usage statistics (optional)",
+    body: [
+      "Both are off until you opt in. Switches: Settings → Crash reports & usage stats.",
+      "Crash reports (Firebase Crashlytics): stack traces and error messages of app crashes, device model, OS version, app version, a Crashlytics installation ID, and a few settings keys (Linux backend, GPU mode, last update result). An error message can include a file path inside app storage.",
+      "Usage statistics (Google Analytics for Firebase): a fixed list of in-app events (e.g. setup complete, AI session start, paywall view, Pro purchase, desktop start, component update) with short identifiers only, plus an app-instance ID.",
+      "Never sent: file contents, prompts, terminal input or output, account names, tokens or keys. The advertising ID is not collected.",
+      "Data is processed by Google under the Firebase terms. It is not sold and not used for advertising.",
+    ],
+  },
+  {
     t: "Permissions",
     body: [
-      "NativeCode may request Android permissions for its features — e.g. notifications for foreground services that keep terminal and AI sessions alive, and network access. Permissions are used only for the stated in-app purpose.",
+      "NativeCode may request Android permissions for its features — e.g. notifications for foreground services that keep terminal, agent chat, desktop and SSH sessions alive, and network access. Permissions are used only for the stated in-app purpose.",
     ],
   },
   {
-    n: "05",
     t: "Sharing",
     body: [
-      "We do not sell or rent your data. Data leaves the device only when you authenticate to a third party, install remote packages you chose, or when a tool you run makes its own network calls.",
+      "We do not sell or rent your data. Data leaves the device only when you authenticate to a third party, install remote packages you chose, a tool you run makes its own network calls, or you opted in to crash reports or usage statistics.",
     ],
   },
   {
-    n: "06",
-    t: "Retention & deletion",
+    t: "Retention",
     body: [
       "Local app and guest data is kept until you delete it, clear storage, or uninstall.",
       "Tokens and keys are kept until you sign out, overwrite config, clear guest home, clear app data, or uninstall.",
-      "In-app: Settings → GitHub Account → LOGOUT, AI CLI tools → per-tool LOGOUT or CLEAR ALL AI CREDENTIALS, or clear app storage from Android App info.",
-      "For account data held by GitHub or AI vendors, manage deletion in those services' own settings.",
+      "Crash reports are kept up to 90 days. Usage statistics are kept up to 2 months. Both are then deleted automatically.",
     ],
   },
   {
-    n: "07",
+    id: "data-deletion",
+    t: "Data deletion",
+    body: [
+      "NativeCode by ZenithBlue — how to delete your data.",
+      "Data on your device: delete projects and files in the app; Settings → GitHub Account → LOGOUT; Settings → AI CLI tools → per-tool LOGOUT or CLEAR ALL AI CREDENTIALS; or Android App info → Clear storage, or uninstall.",
+      "Crash reports & usage statistics: 1) turn both off in Settings → Crash reports & usage stats — collection stops at once; 2) to delete data already sent, email zenithblue.dev@gmail.com with the subject \"NativeCode data deletion\". We delete it within 30 days.",
+      "Deleted: crash reports and usage statistics linked to your installation. Kept: nothing beyond the automatic expiry above (crash reports 90 days, usage statistics 2 months).",
+      "Data held by GitHub or AI providers (Anthropic, OpenAI, Google, xAI and others) is deleted in those services' own account settings.",
+    ],
+  },
+  {
     t: "Security",
     body: [
       "Traffic to third parties uses HTTPS where supported. Credentials live in app and guest storage — protect your device with a lock screen.",
-      "OS backup behavior (allowBackup) may copy app files depending on device settings — treat device backups as sensitive if you store tokens.",
+      "Android backup is disabled for NativeCode. Protect any separate device backups you create.",
     ],
   },
   {
-    n: "08",
     t: "Children's privacy",
     body: [
       "NativeCode is a developer tool intended for adults and professional use. It is not directed at children under 13 (or the age required by local law).",
     ],
   },
   {
-    n: "09",
     t: "AI-generated content",
     body: [
       "Optional AI CLIs run as third-party tools inside the guest environment. You are responsible for how you use them and for complying with each vendor's terms.",
@@ -83,11 +94,10 @@ const sections = [
     ],
   },
   {
-    n: "10",
     t: "Changes & contact",
     body: [
-      "We may update this policy in the repository; the Last updated date will change.",
-      "Questions: zenithblue.dev@gmail.com — or open an issue at github.com/zenithblue-dev/nativecode-ai.",
+      "We may update this policy; the Last updated date will change.",
+      "Developer: ZenithBlue. Questions: zenithblue.dev@gmail.com.",
     ],
   },
 ];
@@ -95,26 +105,26 @@ const sections = [
 
 <Base
   title="Privacy Policy — NativeCode"
-  description="How NativeCode handles information: local-first, no analytics backend, on-device credentials."
+  description="How NativeCode handles information: local-first, on-device credentials, optional opt-in crash reports and usage statistics."
 >
   <Nav />
   <main class="mx-auto max-w-4xl px-4 py-16 sm:px-6">
     <p class="reveal font-mono2 text-xs tracking-widest text-mint">$ nativecode --privacy</p>
     <h1 class="reveal mt-2 text-3xl font-bold sm:text-5xl">Privacy Policy</h1>
     <p class="reveal mt-4 font-mono2 text-sm text-warm">
-      Last updated: 2026-07-31 · App: NativeCode (com.zenithblue.nativecode)
+      Last updated: 2026-11-17 · App: NativeCode (com.zenithblue.nativecode) · Developer: ZenithBlue
     </p>
     <p class="reveal mt-6 max-w-3xl text-lg text-cream/90">
-      NativeCode is a developer environment that runs a Linux guest
-      (PRoot/Chroot), an optional X11 desktop, terminal sessions and optional
+      NativeCode is a developer environment that runs an Alpaquita Linux PRoot
+      guest, an optional X11 desktop, terminal sessions, agent chat and optional
       third-party AI CLIs. This policy describes how information is handled
       when you use the Android app.
     </p>
 
     <div class="mt-10 space-y-4">
-      {sections.map((s) => (
-        <section class="reveal rounded-sm border border-white/10 bg-surface p-6">
-          <p class="font-mono2 text-sm font-bold text-mint">{s.n}</p>
+      {sections.map((s, i) => (
+        <section id={s.id} class="reveal scroll-mt-24 rounded-sm border border-white/10 bg-surface p-6">
+          <p class="font-mono2 text-sm font-bold text-mint">{String(i + 1).padStart(2, "0")}</p>
           <h2 class="mt-1 text-xl font-bold">{s.t}</h2>
           <ul class="mt-3 space-y-2">
             {s.body.map((p) => (
@@ -126,8 +136,7 @@ const sections = [
     </div>
 
     <p class="reveal mt-10 font-mono2 text-xs leading-relaxed text-warm">
-      SOURCE: ADAPTED FROM NC-PLAY docs/privacy-policy.md · FULL TEXT IN THE APP
-      REPO · CONTACT: zenithblue.dev@gmail.com
+      CONTACT: zenithblue.dev@gmail.com
     </p>
   </main>
 </Base>
